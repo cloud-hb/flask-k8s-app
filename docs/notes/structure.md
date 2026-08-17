@@ -1,7 +1,7 @@
 ___
 <a id="top"></a>
 <!-- markdown lint-disable-line MD041 -->
-**[⬅️ ‎‎ Home](../../README.md)**  ‎‎ | ‎‎ **[⬇️ ‎‎ Bottom](#end) ‎‎‎**
+**[⬅️ ‎‎ Home](../../README.md#app-routes)**  ‎‎ | ‎‎ **[⬇️ ‎‎ Bottom](#end) ‎‎‎**
 ___
 
 ## Project Structure
@@ -25,10 +25,12 @@ ___
     └── service.yaml             # Kubernetes Service: exposes the Deployment inside/outside the cluster
 ```
 
+All Flask code lives under `app/`.
+
 ___
 
 <a id="end"></a>
-**[⬅️ ‎‎ Home](../../README.md)**  ‎‎ | ‎‎ **[‎‎ Top ‎ ⬆️️](#top) ‎‎‎**
+**[⬅️ ‎‎ Home](../../README.md#app-routes)**  ‎‎ | ‎‎ **[‎‎ Top ‎ ⬆️️](#top) ‎‎‎**
 
 ___
 
