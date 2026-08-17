@@ -3,68 +3,147 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="description" content="Interface de recherche Flask moderne">
+    <meta name="theme-color" content="#635bff">
     <title>Recherche Flask</title>
+    <link
+        rel="icon"
+        type="image/x-icon"
+        href="{{ url_for('static', filename='favicon.ico') }}"
+    >
+    <link
+        rel="manifest"
+        href="{{ url_for('static', filename='site.webmanifest') }}"
+    >
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 </head>
 <body>
-    <main>
-        <h1>Recherche</h1>
+    <div class="background-decoration background-decoration-one"></div>
+    <div class="background-decoration background-decoration-two"></div>
 
-        <form id="search-form">
-            <label for="search-input">Votre recherche :</label>
+    <header class="topbar">
+        <a href="/" class="brand" aria-label="Accueil">
+            <span class="brand-icon">F</span>
+            <span>FlaskSearch</span>
+        </a>
 
-            <input
-                type="text"
-                id="search-input"
-                name="query"
-                placeholder="Exemple : Python"
-                required
-            >
+        <div class="status">
+            <span class="status-dot"></span>
+            Système opérationnel
+        </div>
+    </header>
 
-            <button type="submit">Rechercher</button>
-        </form>
+<main class="page-container">
+        <section class="hero">
+            <div class="eyebrow">
+                <span class="eyebrow-icon">✦</span>
+                Recherche intelligente
+            </div>
 
-        <h2>Réponse</h2>
-        <pre id="result">Aucune recherche envoyée.</pre>
+            <h1>
+                Trouvez rapidement
+                <span>ce que vous cherchez.</span>
+            </h1>
+
+            <p class="hero-description">
+                Saisissez votre recherche et obtenez une réponse claire
+                directement depuis votre application Flask.
+            </p>
+        </section>
+
+        <section class="search-card" aria-labelledby="search-title">
+            <div class="card-header">
+                <div>
+                    <p class="card-label">Nouvelle recherche</p>
+                    <h2 id="search-title">Que souhaitez-vous rechercher ?</h2>
+                </div>
+
+                <div class="search-symbol" aria-hidden="true">⌕</div>
+            </div>
+
+            <form id="search-form" class="search-form">
+                <label for="search-input">Votre recherche</label>
+
+                <div class="input-wrapper">
+                    <span class="input-icon" aria-hidden="true">⌕</span>
+
+                    <input
+                        type="text"
+                        id="search-input"
+                        name="query"
+                        placeholder="Exemple : Python, Flask, API..."
+                        autocomplete="off"
+                        required
+                    >
+
+                    <button type="button" id="clear-button" class="clear-button" aria-label="Effacer la recherche">
+                        ×
+                    </button>
+                </div>
+
+                <button type="submit" id="submit-button" class="submit-button">
+                    <span class="button-text">Rechercher</span>
+                    <span class="button-icon" aria-hidden="true">→</span>
+                </button>
+            </form>
+
+            <div class="suggestions">
+                <span>Suggestions :</span>
+
+                <button type="button" class="suggestion" data-query="Python">
+                    Python
+                </button>
+
+                <button type="button" class="suggestion" data-query="Flask">
+                    Flask
+                </button>
+
+                <button type="button" class="suggestion" data-query="API REST">
+                    API REST
+                </button>
+            </div>
+        </section>
+
+        <section class="result-section" aria-labelledby="result-title">
+            <div class="result-heading">
+                <div>
+                    <p class="card-label">Résultat</p>
+                    <h2 id="result-title">Réponse de l’API</h2>
+                </div>
+
+                <span id="result-status" class="result-status result-status-neutral">
+                    En attente
+                </span>
+            </div>
+
+            <div id="result-container" class="result-container">
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-icon">✦</div>
+                    <h3>Aucune recherche envoyée</h3>
+                    <p>
+                        Votre résultat apparaîtra ici après l’envoi du formulaire.
+                    </p>
+                </div>
+
+                <pre id="result" class="result-content" hidden></pre>
+            </div>
+        </section>
+
+        <p class="security-note">
+            <span aria-hidden="true">▣</span>
+            Vos recherches sont traitées de manière sécurisée.
+        </p>
     </main>
 
-    <script>
-        const form = document.getElementById("search-form");
-        const input = document.getElementById("search-input");
-        const result = document.getElementById("result");
+    <footer class="footer">
+        <span>FlaskSearch</span>
+        <span>•</span>
+        <span>Interface de recherche</span>
+    </footer>
 
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault();
-
-            const query = input.value.trim();
-
-            if (!query) {
-                result.textContent = "Veuillez saisir une recherche.";
-                return;
-            }
-
-            try {
-                const response = await fetch("/search", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        query: query
-                    })
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || "Une erreur est survenue.");
-                }
-
-                result.textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                result.textContent = `Erreur : ${error.message}`;
-            }
-        });
-    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
