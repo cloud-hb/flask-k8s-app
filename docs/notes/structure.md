@@ -1,0 +1,34 @@
+___
+<a id="top"></a>
+<!-- markdown lint-disable-line MD041 -->
+**[⬅️ ‎‎ Home](../../README.md)**  ‎‎ | ‎‎ **[⬇️ ‎‎ Bottom](#end) ‎‎‎**
+___
+
+## Project Structure
+
+```text
+
+.
+├── .gitignore                   # Git ignore rules (files/folders to exclude from commits)
+├── README.md                    # Project overview, setup, and usage documentation
+├── Dockerfile                   # Instructions to build the Docker image for the app
+├── docs/                        # Documentation site sources and assets (e.g., MkDocs/Sphinx)
+│   
+├── app/                         # Flask application code and dependencies
+│   ├── app.py                   # Main Flask app entry point (routes, app init)
+│   ├── requirements.txt         # Python dependencies for the Flask app (pip install -r)
+│   ├── static/                  # Static assets (CSS, JS, images, favicon ...) served by Flask
+│   └── templates/               # Jinja2 HTML templates rendered by Flask views
+│   
+└── deploy/                      # Kubernetes manifests for deploying the app
+    ├── deployment.yaml          # Kubernetes Deployment: pod spec, replicas, container config
+    └── service.yaml             # Kubernetes Service: exposes the Deployment inside/outside the cluster
+```
+
+___
+
+<a id="end"></a>
+**[⬅️ ‎‎ Home](../../README.md)**  ‎‎ | ‎‎ **[‎‎ Top ‎ ⬆️️](#top) ‎‎‎**
+
+___
+
