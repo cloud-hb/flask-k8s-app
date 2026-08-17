@@ -1,7 +1,10 @@
 <p align="center">
 
-<img src="https://img.shields.io/badge/ArgoCD-FB8C00?style=for-the-badge&logo=argo&logoColor=white"/>
-<img src="https://img.shields.io/badge/GitOps-Declarative%20%7C%20Versioned%20%7C%20Automated-2496ED?style=for-the-badge&logo=git&logoColor=white"/><img src="https://img.shields.io/badge/Kubernetes-Container%20Orchestration-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white"/><img src="https://img.shields.io/badge/Minikube%20OR%20Kind-Local%20K8s%20Clusters-3A76D8?style=for-the-badge&logo=docker&logoColor=white" alt="Minikube OR Kind Local K8s Clusters"/>
+<img src="https://img.shields.io/badge/Flask-Python%20Web%20Framework-000000?style=for-the-badge&logo=flask&logoColor=white"/>
+<img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
+<img src="https://img.shields.io/badge/Kubernetes-Container%20Orchestration-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white"/>
+<img src="https://img.shields.io/badge/Kind-Local%20K8s%20Clusters-3A76D8?style=for-the-badge&logo=docker&logoColor=white" alt="Kind Local K8s Clusters"/>
 
 </p>
 
@@ -11,7 +14,7 @@ Project : [Structure](./docs/notes/structure.md#top) ‎‎‎ | ‎‎‎ [Setu
 
 ---
 
-<h1 align="center">Python Flask Kubernetes(k8s) App</h1>
+<h1 align="center">Python Flask k8s App</h1>
 
 
 Building a python app `flask-k8s-app` using flask (a simple framework for building complex web applications)
