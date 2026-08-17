@@ -6,7 +6,15 @@ spec:
   selector:
     app: flask-app
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: LoadBalancer  # or LoadBalancer if supported by your environment
+    - name: http
+      protocol: TCP  # Flask serves HTTP over TCP.
+      port: 80       # Service port.
+      targetPort: 8080  # Flask container port.
+
+  # Choose one:
+  # Option A: Local access with kubectl port-forward.
+  # type: ClusterIP
+  #
+  # Option B: External access through a supported cloud load balancer.
+  # type: LoadBalancer
+  type: LoadBalancer
