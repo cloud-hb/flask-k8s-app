@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Recherche Flask</title>
+</head>
+<body>
+    <main>
+        <h1>Recherche</h1>
+
+        <form id="search-form">
+            <label for="search-input">Votre recherche :</label>
+
+            <input
+                type="text"
+                id="search-input"
+                name="query"
+                placeholder="Exemple : Python"
+                required
+            >
+
+            <button type="submit">Rechercher</button>
+        </form>
+
+        <h2>Réponse</h2>
+        <pre id="result">Aucune recherche envoyée.</pre>
+    </main>
+
+    <script>
+        const form = document.getElementById("search-form");
+        const input = document.getElementById("search-input");
+        const result = document.getElementById("result");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const query = input.value.trim();
+
+            if (!query) {
+                result.textContent = "Veuillez saisir une recherche.";
+                return;
+            }
+
+            try {
+                const response = await fetch("/search", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        query: query
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || "Une erreur est survenue.");
+                }
+
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                result.textContent = `Erreur : ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>
