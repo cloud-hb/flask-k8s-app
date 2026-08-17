@@ -1,7 +1,7 @@
 ___
 <a id="top"></a>
 <!-- markdown lint-disable-line MD041 -->
-**[🏠 Home TOC](./../../README.md)**  ‎‎ | ‎‎ **[⬇️ ‎‎ Bottom](#end) ‎‎‎**
+**[🏠 Home TOC](./../../README.md#app-routes)**  ‎‎ | ‎‎ **[⬇️ ‎‎ Bottom](#end) ‎‎‎**
 ___
 
 # Glossary
@@ -177,5 +177,5 @@ Flask creates a WSGI application object, and Gunicorn serves
 
 ___
 <a id="end"></a>
-**[‎‎ 🏠 Home TOC](../../README.md)**  ‎‎ | ‎‎ **[‎‎ Top ‎ ⬆️️](#top) ‎‎‎**
+**[‎‎ 🏠 Home TOC](../../README.md#app-routes)**  ‎‎ | ‎‎ **[‎‎ Top ‎ ⬆️️](#top) ‎‎‎**
 ___
