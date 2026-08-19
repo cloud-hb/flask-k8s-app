@@ -3,8 +3,8 @@
 <img src="https://img.shields.io/badge/Flask-Python%20Web%20Framework-000000?style=for-the-badge&logo=flask&logoColor=white"/>
 <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
 <img src="https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
-<img src="https://img.shields.io/badge/Kubernetes-Container%20Orchestration-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white"/>
-<img src="https://img.shields.io/badge/Kind-Local%20K8s%20Clusters-3A76D8?style=for-the-badge&logo=docker&logoColor=white" alt="Kind Local K8s Clusters"/>
+<img src="https://img.shields.io/badge/Kubernetes(k8S)-Container%20Orchestration-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white"/>
+
 
 </p>
 
