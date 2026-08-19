@@ -13,8 +13,9 @@ spec:
 
   # Choose one:
   # Option A: Local access with kubectl port-forward.
-  # type: ClusterIP
+  type: ClusterIP
   #
   # Option B: External access through a supported cloud load balancer.
   # type: LoadBalancer
-  type: LoadBalancer
+  # type: LoadBalancer
+
