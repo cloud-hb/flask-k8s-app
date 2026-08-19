@@ -1,0 +1,577 @@
+{
+  "info": {
+    "_postman_id": "d5b70532-5a4e-46b9-a9a9-371ea56917a9",
+    "name": "Flask k8s Application",
+    "description": "Postman collection for the Flask Kubernetes application with /, /index, /health, /search-page, /search, and /favicon.ico endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "18835519"
+  },
+  "item": [
+    {
+      "name": "Root",
+      "item": [
+        {
+          "name": "GET /",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has JSON\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Message is correct\", function () {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.message).to.eql(\"Flask Kubernetes application is running\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                ""
+              ]
+            },
+            "description": "Healthcheck / welcome endpoint returning a JSON message."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /index (redirect)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 302\", function () {",
+                  "    pm.response.to.have.status(302);",
+                  "});",
+                  "",
+                  "pm.test(\"Redirect location is root endpoint\", function () {",
+                  "    const location = pm.response.headers.get(\"Location\");",
+                  "",
+                  "    pm.expect(location).to.exist;",
+                  "    pm.expect(location).to.include(\"/\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/index",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "index"
+              ]
+            },
+            "description": "Redirects (302) to /."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /health",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "pm.test(\"Health status is OK\", function () {",
+                  "    pm.expect(jsonData).to.deep.equal({",
+                  "        status: \"ok\"",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Simple health check endpoint."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /favicon.ico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body\", function () {",
+                  "    pm.expect(pm.response.responseSize).to.be.greaterThan(0);",
+                  "});",
+                  "",
+                  "pm.test(\"Content-Type is an icon type\", function () {",
+                  "    const contentType = pm.response.headers.get(\"Content-Type\");",
+                  "",
+                  "    pm.expect(contentType).to.exist;",
+                  "    pm.expect(contentType.toLowerCase()).to.include(\"icon\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/favicon.ico",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favicon.ico"
+              ]
+            },
+            "description": "Favicon endpoint (currently commented out in app; enable in code to use)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "item": [
+        {
+          "name": "GET /search-page",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is HTML\", function () {",
+                  "    const contentType = pm.response.headers.get(\"Content-Type\");",
+                  "",
+                  "    pm.expect(contentType).to.exist;",
+                  "    pm.expect(contentType.toLowerCase()).to.include(\"text/html\");",
+                  "});",
+                  "",
+                  "pm.test(\"Search page is not empty\", function () {",
+                  "    pm.expect(pm.response.text()).to.not.be.empty;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search-page",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "search-page"
+              ]
+            },
+            "description": "Renders search.html template (HTML page)."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /search (info)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "pm.test(\"Method is GET\", function () {",
+                  "    pm.expect(jsonData.method).to.eql(\"GET\");",
+                  "});",
+                  "",
+                  "pm.test(\"GET search is not safe\", function () {",
+                  "    pm.expect(jsonData.safe).to.eql(false);",
+                  "});",
+                  "",
+                  "pm.test(\"Response instructs the client to use POST or QUERY\", function () {",
+                  "    pm.expect(jsonData.message).to.eql(",
+                  "        \"Use POST or QUERY with a JSON request body\"",
+                  "    );",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "search"
+              ]
+            },
+            "description": "Returns info that GET is not safe; use POST or QUERY with JSON body."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /search with JSON",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "pm.test(\"Method is POST\", function () {",
+                  "    pm.expect(jsonData.method).to.eql(\"POST\");",
+                  "});",
+                  "",
+                  "pm.test(\"POST search is not safe\", function () {",
+                  "    pm.expect(jsonData.safe).to.eql(false);",
+                  "});",
+                  "",
+                  "pm.test(\"Query data is returned unchanged\", function () {",
+                  "    pm.expect(jsonData.query).to.deep.equal({",
+                  "        query: \"kubernetes\",",
+                  "        page: 1",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"kubernetes\",\n  \"page\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/search",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "search"
+              ]
+            },
+            "description": "Search endpoint using POST with JSON body."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /search with Empty Body",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "pm.test(\"Method is POST\", function () {",
+                  "    pm.expect(jsonData.method).to.eql(\"POST\");",
+                  "});",
+                  "",
+                  "pm.test(\"Empty request body produces an empty query object\", function () {",
+                  "    pm.expect(jsonData.query).to.deep.equal({});",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{base_url}}/search",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "search"
+              ]
+            },
+            "description": "Search endpoint using POST with JSON body."
+          },
+          "response": []
+        },
+        {
+          "name": "QUERY /search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "pm.test(\"Method is QUERY\", function () {",
+                  "    pm.expect(jsonData.method).to.eql(\"QUERY\");",
+                  "});",
+                  "",
+                  "pm.test(\"QUERY request is safe\", function () {",
+                  "    pm.expect(jsonData.safe).to.eql(true);",
+                  "});",
+                  "",
+                  "pm.test(\"Query data is returned unchanged\", function () {",
+                  "    pm.expect(jsonData.query).to.deep.equal({",
+                  "        query: \"flask\",",
+                  "        filters: {",
+                  "            category: \"api\"",
+                  "        }",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "QUERY",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"flask\",\n  \"filters\": {\n    \"category\": \"api\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/search",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "search"
+              ]
+            },
+            "description": "Search endpoint using QUERY (marked as safe in app logic) with JSON body."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Error Handling",
+      "item": [
+        {
+          "name": "GET /nonexistent (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "pm.test(\"Error is Not Found\", function () {",
+                  "    pm.expect(jsonData.error).to.eql(\"Not Found\");",
+                  "});",
+                  "",
+                  "pm.test(\"Returned path is correct\", function () {",
+                  "    pm.expect(jsonData.path).to.eql(\"/nonexistent\");",
+                  "});",
+                  "",
+                  "pm.test(\"Error message is present\", function () {",
+                  "    pm.expect(jsonData.message).to.eql(",
+                  "        \"The requested endpoint does not exist\"",
+                  "    );",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/nonexistent",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "nonexistent"
+              ]
+            },
+            "description": "Triggers the 404 error handler returning a structured JSON error."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "pm.test(\"Response was received\", function () {",
+          "    pm.expect(pm.response).to.exist;",
+          "});",
+          "",
+          "pm.test(\"Response time is under 2 seconds\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
