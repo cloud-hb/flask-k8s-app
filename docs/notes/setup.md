@@ -2,7 +2,8 @@ ___
 <a id="top"></a>
 <!-- markdown lint-disable-line MD041 -->
 **[🏠 Home TOC](./../../README.md#app-routes)**  ‎‎ | ‎‎ **[⬇️ ‎‎ Bottom](#end) ‎‎‎**
-___
+
+---
 
 # Setup
 
@@ -187,6 +188,7 @@ The temporary container is cleaned up automatically.
 
 ### 5.1 Adding New Dependencies
 
+
 1. With your virtual environment activated:
 
    ```bash
@@ -218,7 +220,27 @@ pytest
 
 Run from the project root, ensuring your virtual environment is active and `app/` is importable.
 
+
+---
+
+## 6. Deploy
+
+```bash
+kubectl apply -f deploy/deployment.yaml
+kubectl apply -f deploy/service.yaml
+```
+
+---
+
+## 7. Rollback
+
+```bash
+kubectl rollout status deployment/flask-k8s-app --timeout=300s
+```
+
 ___
+
 <a id="end"></a>
 **[‎‎ 🏠 Home TOC](../../README.md#app-routes)**  ‎‎ | ‎‎ **[‎‎ Top ‎ ⬆️️](#top) ‎‎‎**
+
 ___

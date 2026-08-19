@@ -10,7 +10,7 @@
 
 ---
 
-Project : [Structure](./docs/notes/structure.md#top) ‎‎‎ | ‎‎‎ [Setup](./docs/notes/setup.md#top) ‎‎‎ | ‎‎‎ [Glossary](./docs/notes/glossary.md#top)
+Project : [🏗️ Structure](./docs/notes/structure.md#top) ‎‎‎ | ‎‎‎ [🚀 Setup](./docs/notes/setup.md#top) ‎‎‎ | ‎‎‎ [🧪 Tests](./docs/notes/tests.md#tests) ‎‎‎ | ‎‎‎ [📚 Glossary](./docs/notes/glossary.md#top)
 
 ---
 
@@ -19,42 +19,76 @@ Project : [Structure](./docs/notes/structure.md#top) ‎‎‎ | ‎‎‎ [Setu
 
 Building a python app `flask-k8s-app` using flask (a simple framework for building complex web applications)
 
-# App routes
+
+---
+
+## 🧭 App Routes
+
+View all registered routes with:
 
 ```bash
-# 1. cmd to get the app routes details
-## flask --app app/app.py routes
-
-# 2. Result
-Endpoint        Methods           Rule                   
---------------  ----------------  -----------------------
-favicon         GET               /favicon.ico           
-health          GET               /health                
-index           GET               /                      
-index_redirect  GET               /index                 
-search          GET, POST, QUERY  /search                
-search_page     GET               /search-page           
-static          GET               /static/<path:filename>
+flask --app app/app.py routes
 ```
 
-# Browser
+| Endpoint        | Methods           | Rule                     |
+|-----------------|-------------------|--------------------------|
+| `favicon`       | `GET`             | `/favicon.ico`           |
+| `health`        | `GET`             | `/health`                |
+| `index`         | `GET`             | `/`                      |
+| `index_redirect`| `GET`             | `/index`                 |
+| `search`        | `GET`, `POST`     | `/search`                |
+| `search_page`   | `GET`             | `/search-page`           |
+| `static`        | `GET`             | `/static/<path:filename>`|
 
-```text
-http://127.0.0.1:8080/search-page
-```
+> 💡 The `/search` endpoint also supports a custom `QUERY` method for experimental use.
 
-# Tests
+---
+## 🧪 Testing Endpoints
+
+### Manual cURL tests
+
+#### POST `/search`
+
 ```bash
-# POST
 curl -X POST http://127.0.0.1:8080/search \
   -H "Content-Type: application/json" \
   -d '{"name":"python"}'
-## Expected : {"method":"POST","query":{"name":"python"},"safe":false}
+```
 
-# QUERY
+**Expected response:**
+```json
+{"method":"POST","query":{"name":"python"},"safe":false}
+```
+
+#### QUERY `/search`
+
+```bash
 curl -X QUERY http://127.0.0.1:8080/search \
   -H "Content-Type: application/json" \
   -d '{"name":"python"}'
-## Expected : {"method":"QUERY","query":{"name":"python"},"safe":true}
 ```
----
+
+**Expected response:**
+```json
+{"method":"QUERY","query":{"name":"python"},"safe":true}
+```
+
+### 📬 Postman Collection
+
+Import the Postman collection to quickly test all endpoints with pre-configured requests and environments.
+
+- **Collection:** [Flask k8s App – Postman Collection](./docs/postman/app-collection.json)
+
+**How to use:**
+
+1. Click the collection link above.
+2. In Postman, click **Import**.
+4. Run the requests or use the **Collection Runner** / **Newman** for automated tests.
+
+
+
+
+
+
+
+
