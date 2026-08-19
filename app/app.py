@@ -17,15 +17,15 @@ def index_redirect():
 def health():
     return {"status": "ok"}
 
-# @app.get("/favicon.ico")
-# def favicon():
-#     static_directory = Path(app.root_path) / "static"
+@app.get("/favicon.ico")
+def favicon():
+    static_directory = Path(app.root_path) / "static"
 
-#     return send_from_directory(
-#         static_directory,
-#         "favicon.ico",
-#         mimetype="image/vnd.microsoft.icon",
-#     )
+    return send_from_directory(
+        static_directory,
+        "favicon.ico",
+        mimetype="image/vnd.microsoft.icon",
+    )
 
 @app.errorhandler(404)
 def handle_not_found(error):
